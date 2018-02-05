@@ -29,3 +29,5 @@ app.listen( port, () => {
   console.log( `Server running on port ${port}.` ); // eslint-disable-line no-console
 } );
 
+// Should be run with: curl -X POST http://api.jneidel.com/mangareader-latest\?url\=http://www.mangareader.net/shingeki-no-kyojin
+
