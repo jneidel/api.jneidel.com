@@ -1,5 +1,5 @@
+const phantom = require( "phantom" );
 const express = require( "express" );
-const puppeteer = require( "puppeteer" );
 const chalk = require( "chalk" );
 const port = 62220;
 
@@ -9,16 +9,18 @@ const router = express.Router();
 
 router.post( "/mangareader-latest", async ( req, res, next ) => {
   const url = req.query.url;
-  const manga = url.match( /^http:\/\/www\.mangareader\.net\/(.*)/ )[1].replaceAll( "-", " " );
+  const manga = url.match( /^http:\/\/www\.mangareader\.net\/(.*)/ )[1].replace( /-/g, " " );
 
-  const browser = await puppeteer.launch();
+  const browser = await phantom.create();
+  const page = await browser.createPage();
+  const status = await page.open( url );
 
-  const page = await browser.newPage();
-  await page.goto( url );
+  const chapter = await page.evaluate( function() {
+     return document.getElementById( "latestchapters" ).getElementsByTagName( "a" )[0].innerHTML.match( /(\d+)/ )[0];
+  } );
+  console.log( chapter );
 
-  const chapter = await page.$eval( "#latestchapters", el => el.getElementsByTagName( "a" )[0].innerHTML.match( /(\d+)/ )[0] ).catch( ( er ) => {} );
-
-  browser.close();
+  await browser.exit();
 
   res.send( `The latest chapter of ${manga} is ${chalk.red( chapter )}.` );
 } );
@@ -29,5 +31,4 @@ app.listen( port, () => {
   console.log( `Server running on port ${port}.` ); // eslint-disable-line no-console
 } );
 
-// Should be run with: curl -X POST http://api.jneidel.com/mangareader-latest\?url\=http://www.mangareader.net/shingeki-no-kyojin
 
