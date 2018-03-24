@@ -8,16 +8,11 @@
     "email": "jneidel@outlook.com",
     "url": "https://jneidel.com"
   },
-  "engines": {
-    "node": ">=4"
-  }, 
+  "engines": { "node": ">=4" }, 
   "main": "app.js",
-  "files": [
-    "index.js"
-  ], 
+  "bin": [ "bin/update-mangas.js" ],
   "scripts": {
-    "start": "nodemon app.js",
-    "update": "node utils/update.js"
+    "start": "nodemon app.js"
   },
     "dependencies": {
     "buffered-reader": "^1.0.1",
