@@ -17,7 +17,7 @@
   ], 
   "scripts": {
     "start": "nodemon app.js",
-    "update": "nodemon utils/update.js"
+    "update": "node utils/update.js"
   },
     "dependencies": {
     "buffered-reader": "^1.0.1",
