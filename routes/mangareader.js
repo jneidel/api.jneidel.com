@@ -76,7 +76,7 @@ router.get( "/updates",
       response += ` • https://www.mangareader.net/${x.manga}/${x.chapter}/\n`;
     } );
 
-    return res.status( 200 ).send( response );
+    return res.status( 200 ).send( `${response}\n` );
   }
 );
 
@@ -87,7 +87,7 @@ router.post( "/add-manga",
     const manga = req.query.manga;
 
     if ( !manga ) {
-      return res.status( 400 ).send( "Please include a manga." );
+      return res.status( 400 ).send( "Please include a manga.\n" );
     }
 
     let invalidName = false;
@@ -95,14 +95,14 @@ router.post( "/add-manga",
       .catch( err => invalidName = true );
 
     if ( invalidName ) {
-      return res.status( 400 ).send( "Invalid manga name, please refer to the documentation for more info." );
+      return res.status( 400 ).send( "Invalid manga name, please refer to the documentation for more info.\n" );
     }
 
     const file = path.resolve( __dirname, `../data/${id}/current` );
 
-    fs.appendFile( file, `${manga};${chapter}` );
+    fs.appendFile( file, `${manga};${chapter}\n` );
 
-    return res.status( 200 ).send( `Successfully added ${manga}` );
+    return res.status( 200 ).send( `Successfully added ${manga}\n` );
   }
 );
 
