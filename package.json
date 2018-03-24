@@ -1,19 +1,28 @@
 {
-  "name": "test",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "api.jneidel.com",
+  "version": "0.0.0",
+  "description": "Personal API for utility scripts",
+  "repository": "jneidel/api.jneidel.com",
+  "author": {
+    "name": "Jonathan Neidel",
+    "email": "jneidel@outlook.com",
+    "url": "https://jneidel.com"
+  },
+  "engines": {
+    "node": ">=4"
+  }, 
+  "main": "app.js",
+  "files": [
+    "index.js"
+  ], 
   "scripts": {
     "start": "nodemon app.js",
-    "up": "nodemon update.js"
+    "update": "nodemon utils/update.js"
   },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
+    "dependencies": {
     "buffered-reader": "^1.0.1",
-    "chalk": "^2.3.0",
     "dotenv": "^5.0.1",
-    "express": "^4.16.2",
+    "express": "^4.16.3",
     "fs-walk": "0.0.2",
     "make-dir": "^1.2.0",
     "mz": "^2.7.0",
