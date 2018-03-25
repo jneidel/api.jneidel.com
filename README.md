@@ -19,7 +19,7 @@ Method: POST
 Create id for usage of mangareader API. Has to be include on every request to `mangareader` routes.
 
 ```
-$ curl -X POST http://api.jneidel.com/mangareader/create-id\?id\=rACZ48SEPF
+$ curl -X POST https://api.jneidel.com/mangareader/create-id\?id\=rACZ48SEPF
 ```
 
 **id:**
@@ -35,7 +35,7 @@ Method: POST
 Add manga for which to receive update notifications.
 
 ```
-$ curl -X POST http://api.jneidel.com/mangareader/add-manga\?id\=rACZ48SEPF\&manga\=shingeki-no-kyojin
+$ curl -X POST https://api.jneidel.com/mangareader/add-manga\?id\=rACZ48SEPF\&manga\=shingeki-no-kyojin
 ```
 
 **id:**
@@ -57,7 +57,7 @@ Format: `shingeki-no-kyojin`, taken from the url `https://www.mangareader.net/sh
 Method: GET
 
 ```
-$ curl -X GET http://api.jneidel.com/mangareader/updates\?id\=rACZ48SEPF
+$ curl -X GET https://api.jneidel.com/mangareader/updates\?id\=rACZ48SEPF
 
 ❯ The following updates are available:
  • https://www.mangareader.net/shingeki-no-kyojin/100/
@@ -78,7 +78,7 @@ Value: `1`
 Updates the current chapters, removing them from future `/updates` calls.
 
 ```
-$ curl -X GET http://api.jneidel.com/mangareader/updates\?id\=rACZ48SEPF\&clear\=1
+$ curl -X GET https://api.jneidel.com/mangareader/updates\?id\=rACZ48SEPF\&clear\=1
 ```
 
 **format:**
@@ -87,9 +87,9 @@ Optional
 
 Value: `json`
 
-Include to return data as json object. For viewing in browsers with [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa).
+Include to return data as json object. For other APIs or for viewing in browsers with [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa).
 
-`http://api.jneidel.com/mangareader/updates?id=rACZ48SEPF&format=json`
+[`https://api.jneidel.com/mangareader/updates?id=rACZ48SEPF&format=json`](https://api.jneidel.com/mangareader/updates?id=rACZ48SEPF&format=json)
 
 ```json
 {
