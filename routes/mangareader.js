@@ -49,7 +49,7 @@ router.get( "/updates",
         const latestChapter = await getLatestChapter( manga );
 
         new DataReader( curFile, { encoding: "utf8" } )
-          .on( "line", async function updateCurrentMangas( line, byteOffset ) {
+          .on( "line", async function updateCurrentManga( line, byteOffset ) {
             start = end;
             end = byteOffset;
 

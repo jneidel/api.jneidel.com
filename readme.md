@@ -8,7 +8,7 @@
 
 API for working with [mangareader-dl](https://github.com/jneidel/mangareader-dl).
 
-One can created a list of mangas that the server will update upon release of new chapters. The `/updates` route give a convienient overview of newly available mangas. It also includes links for downloading the new chapters via [mangareader-dl](https://github.com/jneidel/mangareader-dl).
+One can created a list of manga that the server will update upon release of new chapters. The `/updates` route give a convienient overview of newly available manga. It also includes links for downloading the new chapters via [mangareader-dl](https://github.com/jneidel/mangareader-dl).
 
 A rewrite of the mangareader-cli that includes this functionality is planned.
 

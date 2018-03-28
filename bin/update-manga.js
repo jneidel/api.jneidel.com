@@ -1,9 +1,9 @@
-#!/package/host/localhost/nodejs-9/bin/node
+#!/usr/bin/env node
 
 const fs = require( "mz/fs" );
 const path = require( "path" );
 const walk = require( "fs-walk" );
-const { getCurrentData, getLatestChapter } = require( "../utils/mangareader" );
+const { getCurrentData, getLatestChapter } = require( "../lib/mangareader" );
 
 /*
   Utility for /mangareader routes
