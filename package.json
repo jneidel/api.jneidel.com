@@ -8,22 +8,31 @@
     "email": "jneidel@outlook.com",
     "url": "https://jneidel.com"
   },
-  "engines": { "node": ">=8" }, 
+  "engines": {
+    "node": ">=8"
+  },
   "main": "app.js",
   "bin": "bin/update-manga.js",
   "scripts": {
     "start": "nodemon app.js",
-    "bin": "./bin/update-manga.js"
+    "update": "./bin/update-manga.js"
   },
-    "dependencies": {
+  "dependencies": {
+    "body-parser": "^1.18.2",
     "buffered-reader": "^1.0.1",
+    "dot-json": "^1.0.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
+    "file-exists": "^5.0.1",
     "fs-walk": "0.0.2",
+    "lodash": "^4.17.5",
     "make-dir": "^1.2.0",
+    "mangareader-dl": "^0.1.2",
     "mz": "^2.7.0",
-    "nodemon": "^1.17.2",
-    "phantom": "^4.0.12"
+    "nodemon": "^1.17.3",
+    "uuid": "^3.2.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "ava": "^0.25.0"
+  }
 }
