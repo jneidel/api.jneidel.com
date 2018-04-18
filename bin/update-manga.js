@@ -1,48 +1,22 @@
 #!/usr/bin/env node
 
-const fs = require( "mz/fs" );
-const path = require( "path" );
-const walk = require( "fs-walk" );
-const { getCurrentData, getLatestChapter } = require( "../lib/mangareader" );
+const { updateLastChapter, openJson } = require( "../lib/mangareader/manipulate-data" );
 
-/*
-  Utility for /mangareader routes
-  Check all ids for newly available chapters, update 'new' files accordingly
-  Indended to be frequently run as cron job
-*/
+/**
+ * Update all manga in latest.json
+ * Indended to be frequently run as cron job
+ */
 
-async function writeUpdates( data, id, manga, chapter ) {
-  const { current, new: newData } = data;
-  const file = path.resolve( __dirname, `../data/${id}/new` );
+function updateLatestManga() {
+  const latest = openJson( "latest" );
 
-  const curChapter = current
-    .filter( x => x.manga == manga )
-    .map( x => x.chapter )[0];
+  const mangareader = Object.keys( latest.get( "mangareader" ) );
+  const readmng = Object.keys( latest.get( "readmng" ) );
 
-  const isNew = !newData.filter( x => x.manga == manga ).length;
-
-  if ( chapter > curChapter && isNew ) {
-    await fs.appendFile( file, `${manga};${curChapter}\n` );
-  }
+  mangareader.forEach( manga => updateLastChapter( manga, "mangareader" ) );
+  readmng.forEach( manga => updateLastChapter( manga, "readmng" ) );
 }
 
-( async () => {
-  const ids = [];
-  await walk.dirsSync(
-    path.resolve( __dirname, "../data" ),
-    ( base, name, stat, next ) => {
-      if ( name != "current" && name != "new" ) ids.push( name );
-    } );
+updateLatestManga();
 
-  for ( const id of ids ) {
-    const data = await getCurrentData( id );
-
-    const mangas = data.current.map( x => x.manga );
-
-    for ( const manga of mangas ) {
-      const chapter = await getLatestChapter( manga );
-      await writeUpdates( data, id, manga, chapter );
-    }
-  }
-} )();
-
+module.exports = updateLatestManga;

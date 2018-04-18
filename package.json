@@ -1,7 +1,7 @@
 {
   "name": "api.jneidel.com",
   "version": "0.0.0",
-  "description": "Personal API for utility scripts",
+  "description": "Public API for jneidel.com",
   "repository": "jneidel/api.jneidel.com",
   "author": {
     "name": "Jonathan Neidel",
@@ -21,14 +21,11 @@
   },
   "dependencies": {
     "body-parser": "^1.18.2",
-    "buffered-reader": "^1.0.1",
     "dot-json": "^1.0.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "file-exists": "^5.0.1",
-    "fs-walk": "0.0.2",
     "lodash": "^4.17.5",
-    "make-dir": "^1.2.0",
     "mangareader-dl": "^0.1.3",
     "mz": "^2.7.0",
     "uuid": "^3.2.1"

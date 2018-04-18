@@ -1,15 +1,9 @@
 const express = require( "express" );
 const fs = require( "mz/fs" );
 const path = require( "path" );
-const mkdir = require( "make-dir" );
-const reader = require( "buffered-reader" );
-const DataReader = reader.DataReader;
 const uuid = require( "uuid/v4" );
-const { getCurrentData, getLatestChapter } = require( "../../lib/mangareader" );
 const data = require( "../../lib/mangareader/manipulate-data" );
 const utils = require( "./utils" );
-
-const mr = require( "mangareader-dl/lib" );
 
 const router = express.Router();
 
@@ -42,7 +36,7 @@ router.post( "/add-manga",
     return res.json( {
       meta: { id, err: null },
     } );
-  }
+  },
 );
 
 router.post( "/remove-manga",
@@ -76,7 +70,7 @@ router.post( "/update-manga",
     if ( !data.mangaExists( id, manga ) ) return res.json( { meta: { id, err: "Manga hasnt been added yet. Please use /add-manga, before /update-manga" } } );
     // providerExists check, add new/remove old
 
-    data.setMangaChapter( id, manga, provider, chapter );
+    data.setUserChapter( id, manga, provider, chapter );
 
     return res.json( {
       meta: { id, err: null },
