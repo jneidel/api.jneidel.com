@@ -5,13 +5,15 @@ const mkdir = require( "make-dir" );
 const reader = require( "buffered-reader" );
 const DataReader = reader.DataReader;
 const uuid = require( "uuid/v4" );
-const { getCurrentData, getLatestChapter } = require( "../lib/mangareader" );
-const data = require( "../lib/mangareader/manipulate-data" );
+const { getCurrentData, getLatestChapter } = require( "../../lib/mangareader" );
+const data = require( "../../lib/mangareader/manipulate-data" );
 const utils = require( "./utils" );
 
 const mr = require( "mangareader-dl/lib" );
 
 const router = express.Router();
+
+data.checkFilesExist(); // One-time setup
 
 router.post( "/create-id",
   ( req, res ) => {
@@ -25,15 +27,17 @@ router.post( "/create-id",
 );
 
 router.post( "/add-manga",
-  utils.hasId,
+  utils.hasValidId,
   utils.hasManga,
+  utils.hasProvider,
   utils.hasChapter,
   ( req, res ) => {
     const id = req.body.id;
     const manga = req.body.manga;
+    const provider = req.body.provider;
     const chapter = req.body.chapter;
 
-    data.addManga( id, manga, chapter );
+    data.addManga( id, manga, provider, chapter );
 
     return res.json( {
       meta: { id, err: null },
@@ -42,13 +46,15 @@ router.post( "/add-manga",
 );
 
 router.post( "/remove-manga",
-  utils.hasId,
+  utils.hasValidId,
   utils.hasManga,
+  utils.hasProvider,
   ( req, res ) => {
     const id = req.body.id;
     const manga = req.body.manga;
+    const provider = req.body.provider;
 
-    data.removeManga( id, manga );
+    data.removeManga( id, manga, provider );
 
     return res.json( {
       meta: { id, err: null },
@@ -57,17 +63,20 @@ router.post( "/remove-manga",
 );
 
 router.post( "/update-manga",
-  utils.hasId,
+  utils.hasValidId,
   utils.hasManga,
+  utils.hasProvider,
   utils.hasChapter,
   ( req, res ) => {
     const id = req.body.id;
     const manga = req.body.manga;
+    const provider = req.body.provider;
     const chapter = req.body.chapter;
 
     if ( !data.mangaExists( id, manga ) ) return res.json( { meta: { id, err: "Manga hasnt been added yet. Please use /add-manga, before /update-manga" } } );
+    // providerExists check, add new/remove old
 
-    data.setMangaChapter( id, manga, chapter );
+    data.setMangaChapter( id, manga, provider, chapter );
 
     return res.json( {
       meta: { id, err: null },

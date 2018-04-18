@@ -1,8 +1,12 @@
-function hasId( req, res, next ) {
+const data = require( "../../lib/mangareader/manipulate-data" );
+
+function hasValidId( req, res, next ) {
   if ( req.query.id ) return res.status( 400 ).send( "Usage of query parameters is no longer supported." );
 
   // console.log( req.body );
   if ( !req.body.id ) return res.status( 400 ).json( { meta: { err: "Please include the 'id' parameter in your request." } } );
+
+  if ( !data.userExists( req.body.id ) ) return res.status( 400 ).json( { meta: { err: "Please include a valid 'id' in your request." } } );
 
   return next();
 }
@@ -19,8 +23,15 @@ function hasChapter( req, res, next ) {
   return next();
 }
 
+function hasProvider( req, res, next ) {
+  if ( !req.body.provider ) return res.status( 400 ).json( { meta: { err: "Please include the 'provider' parameter in your request." } } );
+
+  return next();
+}
+
 module.exports = {
-  hasId,
+  hasValidId,
   hasManga,
   hasChapter,
+  hasProvider,
 };
