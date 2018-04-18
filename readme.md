@@ -30,6 +30,8 @@ Create user id for usage of the mangareader API. Has to be include on every othe
 
 ```
 $ curl -X POST https://api.jneidel.com/mangareader/create-id
+
+=> { "meta": {...} }
 ```
 
 ### /mangareader/add-manga
@@ -43,6 +45,8 @@ Add the manga with the corresponding chapter to the given userid.
 
 ```
 $ curl https://api.jneidel.com/mangareader/add-manga -d '{ "id": "b8a47508-9701-44f6-b93d-e70167549155", "manga": "shingeki-no-kyojin", "provider": "mangareader", "chapter": 42 }' -H "Content-Type: application/json"
+
+=> { "meta": {...} }
 ```
 
 ### /mangareader/remove-manga
@@ -56,6 +60,8 @@ Add the manga from the given userid.
 
 ```
 $ curl https://api.jneidel.com/mangareader/remove-manga -d '{ "id": "b8a47508-9701-44f6-b93d-e70167549155", "manga": "shingeki-no-kyojin", "provider": "mangareader" }' -H "Content-Type: application/json"
+
+=> { "meta": {...} }
 ```
 
 ### /mangareader/update-manga
@@ -69,4 +75,26 @@ Update the chapter of manga for given user id.
 
 ```
 $ curl https://api.jneidel.com/mangareader/update-manga -d '{ "id": "b8a47508-9701-44f6-b93d-e70167549155", "manga": "shingeki-no-kyojin", "provider": "mangareader", "chapter": 128 }' -H "Content-Type: application/json"
+
+=> { "meta": {...} }
+```
+
+### /mangareader/updates
+
+<table><tr>
+  <td>Method: <code>POST</code></td>
+  <td>Param: <code>id</code>, <code>mangaList</code></td>
+  <td>Return: <code>data</code></td>
+</tr></table>
+
+Get list of manga with available updates.
+
+```
+$ curl https://api.jneidel.com/mangareader/updates -d '{ "id": "b8a47508-9701-44f6-b93d-e70167549155", "mangaList": [ { "name": "shingeki-no-kyojin", "provider": "mangareader" }, { "name": "onepunch-man", "provider": "readmng" } ] }' -H "Content-Type: application/json"
+
+=> {
+  "meta": {...},
+  "data": [ { "name": "shingeki-no-kyojin", "chapter": 94 },
+            { "name": "onepunch-man", "chapter": 130 } ]
+}
 ```

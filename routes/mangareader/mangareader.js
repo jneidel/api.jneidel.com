@@ -67,7 +67,7 @@ router.post( "/update-manga",
     const provider = req.body.provider;
     const chapter = req.body.chapter;
 
-    if ( !data.mangaExists( id, manga ) ) return res.json( { meta: { id, err: "Manga hasnt been added yet. Please use /add-manga, before /update-manga" } } );
+    if ( !data.mangaExists( id, manga ) ) return res.status( 400 ).json( { meta: { id, err: "Manga hasnt been added yet. Please use /add-manga, before /update-manga" } } );
     // providerExists check, add new/remove old
 
     data.setUserChapter( id, manga, provider, chapter );
@@ -75,6 +75,21 @@ router.post( "/update-manga",
     return res.json( {
       meta: { id, err: null },
     } );
+  }
+);
+
+router.post( "/updates",
+  utils.hasValidId,
+  utils.hasMangaList,
+  async ( req, res ) => {
+    const id = req.body.id;
+    const mangaList = req.body.mangaList;
+
+    const response = await data.getUpdates( id, mangaList );
+
+    if ( response.err ) return res.status( 400 ).json( { meta: { id, err: response.err }, data: null } );
+
+    return res.json( { meta: { id, err: null }, data: response.data } );
   }
 );
 

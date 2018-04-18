@@ -29,9 +29,16 @@ function hasProvider( req, res, next ) {
   return next();
 }
 
+function hasMangaList( req, res, next ) {
+  if ( !req.body.mangaList ) return res.status( 400 ).json( { meta: { err: "Please include the 'mangaList' parameter in your request." } } );
+
+  return next();
+}
+
 module.exports = {
   hasValidId,
   hasManga,
   hasChapter,
   hasProvider,
+  hasMangaList,
 };
