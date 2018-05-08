@@ -27,8 +27,8 @@ The response will always be structured like this:
 - [`POST /mangareader/create-id`](#post-mangareadercreate-id)
 - [`POST /mangareader/add-manga`](#post-mangareaderadd-manga)
 - [`POST /mangareader/remove-manga`](#post-mangareaderremove-manga)
-- [`POST /mangareader/update-manga`](#post-mangareaderupdate-manga)
-- [`GET /mangareader/updates`](#get-mangareaderupdates)
+- [`POST /mangareader/update-provider`](#post-mangareaderupdate-provider)
+- [`POST /mangareader/updates`](#post-mangareaderupdates)
 
 ### `POST /mangareader/create-id`
 
@@ -43,13 +43,13 @@ $ curl -X POST https://api.jneidel.com/mangareader/create-id
 ### `POST /mangareader/add-manga`
 
 <table><tr>
-  <td>Param: <code>id</code>, <code>manga</code>, <code>provider</code>, <code>chapter</code></td>
+  <td>Param: <code>id</code>, <code>manga</code>, <code>provider</code></td>
 </tr></table>
 
 Add the manga with the corresponding chapter to the given userid.
 
 ```
-$ curl https://api.jneidel.com/mangareader/add-manga -d '{ "id": "b8a47508-9701-44f6-b93d-e70167549155", "manga": "shingeki-no-kyojin", "provider": "mangareader", "chapter": 42 }' -H "Content-Type: application/json"
+$ curl https://api.jneidel.com/mangareader/add-manga -d '{ "id": "b8a47508-9701-44f6-b93d-e70167549155", "manga": "shingeki-no-kyojin", "provider": "mangareader" }' -H "Content-Type: application/json"
 
 => { "meta": {...} }
 ```
@@ -68,35 +68,47 @@ $ curl https://api.jneidel.com/mangareader/remove-manga -d '{ "id": "b8a47508-97
 => { "meta": {...} }
 ```
 
-### `POST /mangareader/update-manga`
+### `POST /mangareader/update-provider`
 
 <table><tr>
   <td>Param: <code>id</code>, <code>manga</code>, <code>provider</code></td>
 </tr></table>
 
-Update the chapter of manga for given user id.
+Update the provider of manga for given user id.
 
 ```
-$ curl https://api.jneidel.com/mangareader/update-manga -d '{ "id": "b8a47508-9701-44f6-b93d-e70167549155", "manga": "shingeki-no-kyojin", "provider": "mangareader", "chapter": 128 }' -H "Content-Type: application/json"
+$ curl https://api.jneidel.com/mangareader/update-provider -d '{ "id": "b8a47508-9701-44f6-b93d-e70167549155", "manga": "shingeki-no-kyojin", "provider": "mangareader" }' -H "Content-Type: application/json"
 
 => { "meta": {...} }
 ```
 
-### `GET /mangareader/updates`
+### `POST /mangareader/updates`
 
 <table><tr>
-  <td>Param: <code>id</code></td>
+  <td>Param: <code>id</code>, <code>mangaList</code></td>
   <td>Return: <code>data</code></td>
 </tr></table>
 
 Get list of manga with available updates.
 
 ```
-$ curl https://api.jneidel.com/mangareader/updates\?id\=b8a47508-9701-44f6-b93d-e70167549155
+$ curl https://api.jneidel.com/mangareader/updates -d '{ "id": "b8a47508-9701-44f6-b93d-e70167549155", "mangaList": [ { "name": "shingeki-no-kyojin", "provider": "mangareader", "chapter": 93 }, { "name": "onepunch-man", "provider": "readmng", "chapter": 129 } ] }' -H "Content-Type: application/json"
 
 => {
   "meta": {...},
   "data": [ { "name": "shingeki-no-kyojin", "chapter": 94 },
             { "name": "onepunch-man", "chapter": 130 } ]
 }
+```
+
+`mangaList` Schema:
+
+```json
+[
+  {
+    "name":     "<manga-name>",
+    "provider": "<manga-provider>",
+    "chapter":  "<manga-chapter>"
+  }
+]
 ```

@@ -3,7 +3,9 @@ const fs = require( "mz/fs" );
 const path = require( "path" );
 const uuid = require( "uuid/v4" );
 const data = require( "../../lib/mangareader/manipulate-data" );
-const utils = require( "./utils" );
+const has = require( "./has-param-middleware" );
+
+const successMeta = id => ( { id, err: null } );
 
 const router = express.Router();
 
@@ -14,35 +16,29 @@ router.post( "/create-id",
     const id = uuid();
     data.addUser( id );
 
-    return res.json( {
-      meta: { id, err: null },
-    } );
+    return res.json( { meta: successMeta( id ) } );
   }
 );
 
 router.post( "/add-manga",
-  utils.hasValidId,
-  utils.hasManga,
-  utils.hasProvider,
-  utils.hasChapter,
+  has.validId,
+  has.manga,
+  has.provider,
   ( req, res ) => {
     const id = req.body.id;
     const manga = req.body.manga;
     const provider = req.body.provider;
-    const chapter = req.body.chapter;
 
-    data.addManga( id, manga, provider, chapter );
+    data.addManga( id, manga, provider );
 
-    return res.json( {
-      meta: { id, err: null },
-    } );
+    return res.json( { meta: successMeta( id ) } );
   },
 );
 
 router.post( "/remove-manga",
-  utils.hasValidId,
-  utils.hasManga,
-  utils.hasProvider,
+  has.validId,
+  has.manga,
+  has.provider,
   ( req, res ) => {
     const id = req.body.id;
     const manga = req.body.manga;
@@ -50,44 +46,41 @@ router.post( "/remove-manga",
 
     data.removeManga( id, manga, provider );
 
-    return res.json( {
-      meta: { id, err: null },
-    } );
+    return res.json( { meta: successMeta( id ) } );
   }
 );
 
-router.post( "/update-manga",
-  utils.hasValidId,
-  utils.hasManga,
-  utils.hasProvider,
-  utils.hasChapter,
+router.post( "/update-provider",
+  has.validId,
+  has.manga,
+  has.provider,
   ( req, res ) => {
     const id = req.body.id;
     const manga = req.body.manga;
     const provider = req.body.provider;
-    const chapter = req.body.chapter;
 
-    if ( !data.mangaExists( id, manga ) ) return res.status( 400 ).json( { meta: { id, err: "Manga hasnt been added yet. Please use /add-manga, before /update-manga" } } );
-    // providerExists check, add new/remove old
+    if ( !data.mangaExists( id, manga ) ) return res.status( 400 ).json( { meta: { id, err: "Manga hasnt been added yet. Please use /add-manga, before /update-provider" } } );
+    if ( data.providerExists( id, manga, provider ) )
+      return res.json( { meta: successMeta( id ) } );
 
-    data.setUserChapter( id, manga, provider, chapter );
+    data.updateProvider( id, manga, provider );
 
-    return res.json( {
-      meta: { id, err: null },
-    } );
+    return res.json( { meta: successMeta( id ) } );
   }
 );
 
-router.get( "/updates",
-  utils.hasValidId,
+router.post( "/updates",
+  has.validId,
+  has.mangaList,
   async ( req, res ) => {
     const id = req.body.id;
+    const mangaList = req.body.mangaList;
 
-    const response = await data.getUpdates( id );
+    const response = await data.getUpdates( id, mangaList );
 
     if ( response.err ) return res.status( 400 ).json( { meta: { id, err: response.err }, data: null } );
 
-    return res.json( { meta: { id, err: null }, data: response.data } );
+    return res.json( { meta: successMeta( id ), data: response.data } );
   }
 );
 
