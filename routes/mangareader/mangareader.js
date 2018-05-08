@@ -78,14 +78,12 @@ router.post( "/update-manga",
   }
 );
 
-router.post( "/updates",
+router.get( "/updates",
   utils.hasValidId,
-  utils.hasMangaList,
   async ( req, res ) => {
     const id = req.body.id;
-    const mangaList = req.body.mangaList;
 
-    const response = await data.getUpdates( id, mangaList );
+    const response = await data.getUpdates( id );
 
     if ( response.err ) return res.status( 400 ).json( { meta: { id, err: response.err }, data: null } );
 

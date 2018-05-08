@@ -82,15 +82,15 @@ $ curl https://api.jneidel.com/mangareader/update-manga -d '{ "id": "b8a47508-97
 ### /mangareader/updates
 
 <table><tr>
-  <td>Method: <code>POST</code></td>
-  <td>Param: <code>id</code>, <code>mangaList</code></td>
+  <td>Method: <code>GET</code></td>
+  <td>Param: <code>id</code></td>
   <td>Return: <code>data</code></td>
 </tr></table>
 
 Get list of manga with available updates.
 
 ```
-$ curl https://api.jneidel.com/mangareader/updates -d '{ "id": "b8a47508-9701-44f6-b93d-e70167549155", "mangaList": [ { "name": "shingeki-no-kyojin", "provider": "mangareader" }, { "name": "onepunch-man", "provider": "readmng" } ] }' -H "Content-Type: application/json"
+$ curl https://api.jneidel.com/mangareader/updates\?id\=b8a47508-9701-44f6-b93d-e70167549155
 
 => {
   "meta": {...},

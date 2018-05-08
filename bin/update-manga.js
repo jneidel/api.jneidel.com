@@ -7,14 +7,14 @@ const { updateLastChapter, openJson } = require( "../lib/mangareader/manipulate-
  * Indended to be frequently run as cron job
  */
 
-function updateLatestManga() {
+async function updateLatestManga() {
   const latest = openJson( "latest" );
 
   const mangareader = Object.keys( latest.get( "mangareader" ) );
   const readmng = Object.keys( latest.get( "readmng" ) );
 
-  mangareader.forEach( manga => updateLastChapter( manga, "mangareader" ) );
-  readmng.forEach( manga => updateLastChapter( manga, "readmng" ) );
+  await mangareader.forEach( manga => updateLastChapter( manga, "mangareader" ) );
+  await readmng.forEach( manga => updateLastChapter( manga, "readmng" ) );
 }
 
 updateLatestManga();
