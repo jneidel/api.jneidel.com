@@ -2,7 +2,9 @@
 
 > Public API for jneidel.com
 
-## /mangareader
+The public endpoint is: `api.jneidel.com`.
+
+## `/mangareader`
 
 API for [mangareader-dl](https://github.com/jneidel/mangareader-dl).
 
@@ -20,11 +22,15 @@ The response will always be structured like this:
 }
 ```
 
-### /mangareader/create-id
+### All routes:
 
-<table><tr>
-  <td>Method: <code>POST</code></td>
-</tr></table>
+- [`POST /mangareader/create-id`](#post-mangareadercreate-id)
+- [`POST /mangareader/add-manga`](#post-mangareaderadd-manga)
+- [`POST /mangareader/remove-manga`](#post-mangareaderremove-manga)
+- [`POST /mangareader/update-manga`](#post-mangareaderupdate-manga)
+- [`GET /mangareader/updates`](#get-mangareaderupdates)
+
+### `POST /mangareader/create-id`
 
 Create user id for usage of the mangareader API. Has to be include on every other request to `/mangareader` routes.
 
@@ -34,10 +40,9 @@ $ curl -X POST https://api.jneidel.com/mangareader/create-id
 => { "meta": {...} }
 ```
 
-### /mangareader/add-manga
+### `POST /mangareader/add-manga`
 
 <table><tr>
-  <td>Method: <code>POST</code></td>
   <td>Param: <code>id</code>, <code>manga</code>, <code>provider</code>, <code>chapter</code></td>
 </tr></table>
 
@@ -49,10 +54,9 @@ $ curl https://api.jneidel.com/mangareader/add-manga -d '{ "id": "b8a47508-9701-
 => { "meta": {...} }
 ```
 
-### /mangareader/remove-manga
+### `POST /mangareader/remove-manga`
 
 <table><tr>
-  <td>Method: <code>POST</code></td>
   <td>Param: <code>id</code>, <code>manga</code>, <code>provider</code></td>
 </tr></table>
 
@@ -64,10 +68,9 @@ $ curl https://api.jneidel.com/mangareader/remove-manga -d '{ "id": "b8a47508-97
 => { "meta": {...} }
 ```
 
-### /mangareader/update-manga
+### `POST /mangareader/update-manga`
 
 <table><tr>
-  <td>Method: <code>POST</code></td>
   <td>Param: <code>id</code>, <code>manga</code>, <code>provider</code></td>
 </tr></table>
 
@@ -79,10 +82,9 @@ $ curl https://api.jneidel.com/mangareader/update-manga -d '{ "id": "b8a47508-97
 => { "meta": {...} }
 ```
 
-### /mangareader/updates
+### `GET /mangareader/updates`
 
 <table><tr>
-  <td>Method: <code>GET</code></td>
   <td>Param: <code>id</code></td>
   <td>Return: <code>data</code></td>
 </tr></table>
