@@ -18,3 +18,5 @@ app.use( "/", ( req, res ) => res.sendFile( path.resolve( __dirname, "index.html
 app.listen( port, () => {
   console.log( `Server running on port ${port}.` ); // eslint-disable-line no-console
 } );
+
+process.on( "unhandledRejection", ( err ) => { throw err; } );

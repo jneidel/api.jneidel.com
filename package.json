@@ -15,9 +15,7 @@
   "bin": "bin/update-manga.js",
   "scripts": {
     "start": "nodemon app.js",
-    "update": "./bin/update-manga.js",
-    "test": "ava",
-    "testing": "ava -w"
+    "update": "./bin/update-manga.js"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -25,18 +23,12 @@
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "file-exists": "^5.0.1",
-    "lodash": "^4.17.5",
-    "mangareader-dl": "^0.1.3",
+    "lodash": "^4.17.10",
+    "mangareader-dl": "^0.1.5",
     "mz": "^2.7.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "ava": "^0.25.0",
-    "nodemon": "^1.17.3"
-  },
-  "ava": {
-    "files": [
-      "test/**/*.test.js"
-    ]
+    "nodemon": "^1.17.4"
   }
 }
