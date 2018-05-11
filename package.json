@@ -14,7 +14,7 @@
   "main": "app.js",
   "bin": "bin/update-manga.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon app.js --ignore 'data'",
     "update": "./bin/update-manga.js"
   },
   "dependencies": {
