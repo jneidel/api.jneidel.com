@@ -26,7 +26,7 @@ function mangaList( req, res, next ) {
   for ( const manga of req.body.mangaList ) {
     if ( !manga.name ) return res.status( 400 ).json( { meta: { err: "Please include a 'name' in each object of 'mangaList' (refer to the documentation for a schema of 'mangaList')." } } );
     if ( !manga.provider ) return res.status( 400 ).json( { meta: { err: "Please include a 'provider' in each object of 'mangaList' (refer to the documentation for a schema of 'mangaList')." } } );
-    if ( !manga.chapter ) return res.status( 400 ).json( { meta: { err: "Please include a 'chapter' in each object of 'mangaList' (refer to the documentation for a schema of 'mangaList')." } } );
+    if ( manga.chapter === undefined ) return res.status( 400 ).json( { meta: { err: "Please include a 'chapter' in each object of 'mangaList' (refer to the documentation for a schema of 'mangaList')." } } );
   }
 
   return next();
