@@ -12,21 +12,16 @@
     "node": ">=8"
   },
   "main": "app.js",
-  "bin": "bin/update-manga.js",
   "scripts": {
-    "start": "nodemon app.js --ignore 'data'",
-    "update": "./bin/update-manga.js"
+    "start": "nodemon app.js --ignore 'data'"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
     "dot-json": "^1.0.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
-    "file-exists": "^5.0.1",
     "lodash": "^4.17.10",
-    "mangareader-dl": "^0.1.5",
-    "mz": "^2.7.0",
-    "uuid": "^3.2.1"
+    "mz": "^2.7.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.4"
