@@ -5,7 +5,7 @@
   "repository": "jneidel/api.jneidel.com",
   "author": {
     "name": "Jonathan Neidel",
-    "email": "jneidel@outlook.com",
+    "email": "github@jneidel.com",
     "url": "https://jneidel.com"
   },
   "engines": {
@@ -13,15 +13,14 @@
   },
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js --ignore 'data'",
-    "test": "ava"
+    "start": "nodemon app.js --ignore [ 'data', 'errors', 'test', 'tmp' ]",
+    "test": "ava",
+    "prod": "node -r dotenv/config app.js dotenv_config_path=vars.env"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
-    "dot-json": "^1.0.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
-    "lodash": "^4.17.10",
     "mz": "^2.7.0"
   },
   "devDependencies": {
