@@ -14,7 +14,8 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js --ignore [ 'data', 'errors', 'test', 'tmp' ]",
-    "test": "ava"
+    "test": "ava",
+    "prod": "node -r dotenv/config app.js dotenv_config_path=vars.env"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
