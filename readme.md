@@ -13,7 +13,7 @@ Error collection point for all my apps. The apps send anonymous data here once a
 Main route to submit errors.
 
 ```
-$ curl http://api.jneidel.com:62220/errors/submit -d '{"id": "4163815d-3851-4c20-8f0e-518cddd0c783", "app": { "name": "lock-me-out-cli", "version": "0.2.5" }, "os": {"type":"Darwin","platform":"darwin"},"error":{"msg": "this","stack":"that"} }' -H "Content-Type: application/json"     
+$ curl http://api.jneidel.com/errors/submit -d '{"id": "4163815d-3851-4c20-8f0e-518cddd0c783", "app": { "name": "lock-me-out-cli", "version": "0.2.5" }, "os": {"type":"Darwin","platform":"darwin"},"error":{"msg": "this","stack":"that"} }' -H "Content-Type: application/json"     
 
 #=> { "success": true }
 ```
