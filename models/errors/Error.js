@@ -146,6 +146,17 @@ function maybeSetErr( err, error ) {
     error.format += formatStr( "err", err, true );
 }
 
+function maybeSetEnv( incErr, error ) {
+  const alreadyHandled = [ "id", "app", "os", "error" ];
+  const keys = Object.keys( incErr )
+    .filter( key => !~alreadyHandled.indexOf( key ) );
+
+  if ( keys.length > 0 ) {
+    error.env = {};
+    keys.forEach( key => error.env[key] = incErr[key] );
+  }
+}
+
 function IncomingError( incomingError ) {
   const error = new ErrorModel();
   const errorIsCorrectFormat =
@@ -162,6 +173,7 @@ function IncomingError( incomingError ) {
   maybeSetApp( incomingError.app, error );
   maybeSetOs( incomingError.os, error );
   maybeSetErr( incomingError.error, error );
+  maybeSetEnv( incomingError, error );
 
   return error;
 }
