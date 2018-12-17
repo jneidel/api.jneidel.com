@@ -9,10 +9,9 @@ const router = express.Router();
 router.post( "/submit", ( req, res ) => {
   const error = IncomingError( req.body );
 
-  // Filter out those that aren't in data/errors/ids
-  if ( error.app.name !== "Missing app.name" ) {
+  // Filter out those that aren't in data/errors/ids & Windows errors
+  if ( error.app.name !== "Missing app.name" && error.os.type !== "Windows_NT" )
     appendToLog( error.app.name, error );
-  }
 
   res.status( 200 ).json( { success: "true" } );
 } );
