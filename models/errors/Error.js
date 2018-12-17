@@ -5,9 +5,12 @@ const platforms = require( "../../data/errors/platforms.json" );
 const formatStr = ( name, val, incorrect = null, invalid = null ) => `${incorrect ? "Incorrect" : ""}${incorrect && invalid ? "/" : ""}${invalid ? "Invalid" : ""} ${name}: ${val}\n`;
 
 function ErrorModel() {
+  const time = new Date();
+
   return {
-    id : "Missing id",
-    app: {
+    id  : "Missing id",
+    time: `${time.getDate()}-${time.getMonth()} ${time.getHours()}:${time.getMinutes()}`,
+    app : {
       name   : "Missing app.name",
       version: "Missing app.version",
     },
